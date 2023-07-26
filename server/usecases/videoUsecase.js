@@ -11,4 +11,8 @@ function getAllVideoThumbnails() {
   );
 }
 
-module.exports = { getAllVideoThumbnails };
+function getVideoThumbnailById(videoID) {
+  return VideoRepository.getVideoByID(videoID);
+}
+
+module.exports = { getAllVideoThumbnails, getVideoThumbnailById };

@@ -8,6 +8,24 @@ function videoThumbnailList(req, res) {
   res.json(thumbnails);
 }
 
+function videoThumbnailById(req, res) {
+  try {
+    const { videoID } = req.query;
+    if (!videoID) {
+      return res.status(400).json({ error: 'VideoID is required.' });
+    }
+
+    const video = VideoUseCase.getVideoThumbnailById(Number(videoID));
+    if (!video) {
+      return res.status(404).json({ error: 'Video not found.' });
+    }
+
+    res.json(video);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+}
+
 function productList(req, res) {
   const { videoID } = req.query;
   const products = ProductUsecase.getProductListByVideoID(videoID);
@@ -37,6 +55,7 @@ function submitComment(req, res) {
 
 module.exports = {
   videoThumbnailList,
+  videoThumbnailById,
   productList,
   commentList,
   submitComment,
