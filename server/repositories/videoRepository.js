@@ -1,4 +1,5 @@
-const Video = require('../models/video');
+/* eslint-disable no-undef */
+import Video from '../models/video';
 
 const videos = [
   new Video(1, 'url_image_1', 'thumbnail_1.jpg'),
