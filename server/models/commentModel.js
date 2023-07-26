@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import mongoose from 'mongooose';
+import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
   videoID: {
@@ -21,4 +20,6 @@ const commentSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+
+export default Comment;

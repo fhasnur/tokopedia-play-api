@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import router from './server/routes/routes';
+import router from './server/routes/routes.js';
 
 const app = express();
 dotenv.config();
@@ -11,16 +11,19 @@ dotenv.config();
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
-mongoose.connect(DB_URL);
-const db = mongoose.connection;
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
-db.on('error', (err) => {
-  console.log(err);
-});
-
-db.once('connected', () => {
-  console.log('Database connected');
-});
+mongoose
+  .connect(`${DB_URL}:${PORT}`, options)
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch((error) => {
+    console.error('Database connection error:', error.message);
+  });
 
 app.use(bodyParser.json());
 app.use(

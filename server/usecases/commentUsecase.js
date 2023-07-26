@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import CommentRepository from '../repositories/commentRepository';
+import CommentRepository from '../repositories/commentRepository.js';
 
 function getCommentListByVideoID(videoID) {
   return CommentRepository.getCommentsByVideoID(videoID);
 }
 
-module.exports = { getCommentListByVideoID };
+export default { getCommentListByVideoID };

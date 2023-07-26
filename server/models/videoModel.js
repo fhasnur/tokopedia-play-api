@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import mongoose from 'mongooose';
+import mongoose from 'mongoose';
 
 const videoSchema = new mongoose.Schema({
   videoID: {
@@ -17,4 +16,6 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Video', videoSchema);
+const Video = mongoose.model('Video', videoSchema);
+
+export default Video;

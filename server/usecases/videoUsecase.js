@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import VideoRepository from '../repositories/videoRepository';
+import VideoRepository from '../repositories/videoRepository.js';
 
 function getAllVideoThumbnails() {
   return VideoRepository.getAllVideos().map(
@@ -15,4 +14,4 @@ function getVideoThumbnailById(videoID) {
   return VideoRepository.getVideoByID(videoID);
 }
 
-module.exports = { getAllVideoThumbnails, getVideoThumbnailById };
+export default { getAllVideoThumbnails, getVideoThumbnailById };

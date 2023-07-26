@@ -1,21 +1,20 @@
-/* eslint-disable no-undef */
-import VideoUsecase from '../usecases/videoUsecase';
-import ProductUsecase from '../usecases/productUsecase';
-import CommentUsecase from '../usecases/commentUsecase';
+import VideoUsecase from '../usecases/videoUsecase.js';
+import ProductUsecase from '../usecases/productUsecase.js';
+import CommentUsecase from '../usecases/commentUsecase.js';
 
 function videoThumbnailList(req, res) {
   const thumbnails = VideoUsecase.getAllVideoThumbnails();
   res.json(thumbnails);
 }
 
-function videoThumbnailById(req, res) {
+async function videoThumbnailById(req, res) {
   try {
     const { videoID } = req.query;
     if (!videoID) {
       return res.status(400).json({ error: 'VideoID is required.' });
     }
 
-    const video = VideoUseCase.getVideoThumbnailById(Number(videoID));
+    const video = await VideoUsecase.getVideoThumbnailById(Number(videoID));
     if (!video) {
       return res.status(404).json({ error: 'Video not found.' });
     }
@@ -26,22 +25,26 @@ function videoThumbnailById(req, res) {
   }
 }
 
-function productList(req, res) {
+async function productList(req, res) {
   const { videoID } = req.query;
-  const products = ProductUsecase.getProductListByVideoID(videoID);
+  const products = await ProductUsecase.getProductListByVideoID(videoID);
   res.json(products);
 }
 
-function commentList(req, res) {
+async function commentList(req, res) {
   const { videoID } = req.query;
-  const comments = CommentUsecase.getCommentListByVideoID(videoID);
+  const comments = await CommentUsecase.getCommentListByVideoID(videoID);
   res.json(comments);
 }
 
-function submitComment(req, res) {
+async function submitComment(req, res) {
   try {
     const { username, comment, videoID } = req.body;
-    const newComment = CommentUsecase.submitComment(username, comment, videoID);
+    const newComment = await CommentUsecase.submitComment(
+      username,
+      comment,
+      videoID,
+    );
 
     if (newComment) {
       res.json({ success: true });
@@ -53,7 +56,7 @@ function submitComment(req, res) {
   }
 }
 
-module.exports = {
+export default {
   videoThumbnailList,
   videoThumbnailById,
   productList,

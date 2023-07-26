@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import ProductRepository from './repositories/productRepository';
+import ProductRepository from '../repositories/productRepository.js';
 
 function getProductListByVideoID(videoID) {
   return ProductRepository.getProductsByVideoID(videoID);
 }
 
-module.exports = { getProductListByVideoID };
+export default { getProductListByVideoID };

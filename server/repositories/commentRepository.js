@@ -1,19 +1,25 @@
-/* eslint-disable no-undef */
-import Comment from '../models/commentModel';
-
-const comments = [
-  new Comment('user1', 'Comment 1', new Date()),
-  new Comment('user2', 'Comment 2', new Date()),
-];
+import Comment from '../models/commentModel.js';
 
 function getCommentsByVideoID(videoID) {
-  return comments.filter((comment) => comment.videoID === videoID);
+  return Comment.filter((comment) => comment.videoID === videoID);
 }
 
 function addComment(username, comment, videoID) {
-  const newComment = new Comment(username, comment, new Date());
-  comments.push(newComment);
+  const newComment = new Comment({
+    videoID: videoID,
+    username: username,
+    comment: comment,
+  });
+
+  newComment.save((err, savedComment) => {
+    if (err) {
+      console.error('Error saving comment:', err);
+    } else {
+      console.log('Comment saved successfully:', savedComment);
+    }
+  });
+
   return newComment;
 }
 
-module.exports = { getCommentsByVideoID, addComment };
+export default { getCommentsByVideoID, addComment };
