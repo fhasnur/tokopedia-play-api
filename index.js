@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import router from './server/routes/routes';
 
 const app = express();
 dotenv.config();
@@ -27,6 +28,14 @@ app.use(
     extended: true,
   }),
 );
+
+app.use('/api/v1/videos', router);
+
+app.use((req, res) => {
+  res.status(404).json({
+    message: 'not found!',
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
