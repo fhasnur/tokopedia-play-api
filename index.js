@@ -11,19 +11,16 @@ dotenv.config();
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+mongoose.connect(DB_URL);
+const db = mongoose.connection;
 
-mongoose
-  .connect(`${DB_URL}:${PORT}`, options)
-  .then(() => {
-    console.log('Connected to database!');
-  })
-  .catch((error) => {
-    console.error('Database connection error:', error.message);
-  });
+db.on('error', (err) => {
+  console.log(err);
+});
+
+db.on('connected', () => {
+  console.log('Database connected');
+});
 
 app.use(bodyParser.json());
 app.use(
