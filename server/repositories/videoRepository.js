@@ -1,11 +1,21 @@
 import Video from '../models/videoModel.js';
 
-function getAllVideos() {
-  return Video.find();
+export async function getAllVideosRepo() {
+  try {
+    const videos = await Video.find();
+    return videos;
+  } catch (error) {
+    console.error('Error getting all videos:', error);
+    throw error;
+  }
 }
 
-function getVideoByID(videoID) {
-  return Video.find((video) => video.videoID === videoID);
+export async function getVideoByIdRepo(videoID) {
+  try {
+    const video = await Video.findOne({ videoID: videoID });
+    return video;
+  } catch (error) {
+    console.error('Error getting video by ID:', error);
+    throw error;
+  }
 }
-
-export default { getAllVideos, getVideoByID };

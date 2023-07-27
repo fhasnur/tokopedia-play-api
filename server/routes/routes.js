@@ -1,17 +1,17 @@
 import express from 'express';
 
-import videoController from '../controllers/videoController.js';
+import { getAllVideos, getVideoById } from '../controllers/videoController.js';
 
 const router = express.Router();
 
-router.get('/thumbnails', videoController.videoThumbnailList);
+router.get('/thumbnails', getAllVideos);
 
-router.get('/thumbnails/:id', videoController.videoThumbnailList);
+router.get('/thumbnails/:id', getVideoById);
 
-router.get('/products', videoController.productList);
+router.get('/products');
 
-router.get('/comments', videoController.commentList);
+router.get('/comments');
 
-router.post('/comments', videoController.submitComment);
+router.post('/comments');
 
 export default router;

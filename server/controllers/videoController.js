@@ -1,20 +1,33 @@
-import VideoUsecase from '../usecases/videoUsecase.js';
+import {
+  getAllVideosUsecase,
+  getVideoByIdUsecase,
+} from '../usecases/videoUsecase.js';
 import ProductUsecase from '../usecases/productUsecase.js';
 import CommentUsecase from '../usecases/commentUsecase.js';
 
-function videoThumbnailList(req, res) {
-  const thumbnails = VideoUsecase.getAllVideoThumbnails();
-  res.json(thumbnails);
+export async function getAllVideos(req, res) {
+  try {
+    const videos = await getAllVideosUsecase();
+
+    if (!videos) {
+      return res.status(404).json({ message: 'No videos found.' });
+    }
+
+    return res.json(videos);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Internal server error.' });
+  }
 }
 
-async function videoThumbnailById(req, res) {
+export async function getVideoById(req, res) {
   try {
     const { videoID } = req.query;
     if (!videoID) {
       return res.status(400).json({ error: 'VideoID is required.' });
     }
 
-    const video = await VideoUsecase.getVideoThumbnailById(Number(videoID));
+    const video = await getVideoByIdUsecase(videoID);
     if (!video) {
       return res.status(404).json({ error: 'Video not found.' });
     }
@@ -25,19 +38,19 @@ async function videoThumbnailById(req, res) {
   }
 }
 
-async function productList(req, res) {
+export async function productList(req, res) {
   const { videoID } = req.query;
   const products = await ProductUsecase.getProductListByVideoID(videoID);
   res.json(products);
 }
 
-async function commentList(req, res) {
+export async function commentList(req, res) {
   const { videoID } = req.query;
   const comments = await CommentUsecase.getCommentListByVideoID(videoID);
   res.json(comments);
 }
 
-async function submitComment(req, res) {
+export async function submitComment(req, res) {
   try {
     const { username, comment, videoID } = req.body;
     const newComment = await CommentUsecase.submitComment(
@@ -55,11 +68,3 @@ async function submitComment(req, res) {
     res.status(500).json({ success: false });
   }
 }
-
-export default {
-  videoThumbnailList,
-  videoThumbnailById,
-  productList,
-  commentList,
-  submitComment,
-};
