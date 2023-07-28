@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
-  videoID: {
-    type: String,
-    required: true,
-  },
   username: {
     type: String,
     required: true,
   },
   comment: {
+    type: String,
+    required: true,
+  },
+  videoId: {
     type: String,
     required: true,
   },
@@ -20,6 +20,6 @@ const commentSchema = new mongoose.Schema({
   },
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comments = mongoose.model('Comments', commentSchema);
 
-export default Comment;
+export default Comments;

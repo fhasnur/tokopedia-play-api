@@ -1,70 +1,38 @@
-import {
-  getAllVideosUsecase,
-  getVideoByIdUsecase,
-} from '../usecases/videoUsecase.js';
-import ProductUsecase from '../usecases/productUsecase.js';
-import CommentUsecase from '../usecases/commentUsecase.js';
+import Videos from '../models/videoModel.js';
 
-export async function getAllVideos(req, res) {
+export const getAllVideos = async (req, res) => {
   try {
-    const videos = await getAllVideosUsecase();
-
-    if (!videos) {
-      return res.status(404).json({ message: 'No videos found.' });
-    }
-
-    return res.json(videos);
+    const videos = await Videos.find();
+    res.json(videos);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
-export async function getVideoById(req, res) {
+export const getVideoById = async (req, res) => {
+  const { videoId } = req.params;
+
+  const video = await Videos.findById(String(videoId));
+  if (!video) {
+    return res.status(404).json({ message: 'Video not found' });
+  }
+  res.json(video);
+};
+
+export const createVideo = async (req, res) => {
+  const { title, urlImage, thumbnail } = req.body;
+
   try {
-    const { videoID } = req.query;
-    if (!videoID) {
-      return res.status(400).json({ error: 'VideoID is required.' });
-    }
+    const newVideo = new Videos({
+      title,
+      urlImage,
+      thumbnail,
+    });
 
-    const video = await getVideoByIdUsecase(videoID);
-    if (!video) {
-      return res.status(404).json({ error: 'Video not found.' });
-    }
+    const createdVideo = await newVideo.save();
 
-    res.json(video);
+    res.status(201).json(createdVideo);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error.' });
+    res.status(500).json({ message: error.message });
   }
-}
-
-export async function productList(req, res) {
-  const { videoID } = req.query;
-  const products = await ProductUsecase.getProductListByVideoID(videoID);
-  res.json(products);
-}
-
-export async function commentList(req, res) {
-  const { videoID } = req.query;
-  const comments = await CommentUsecase.getCommentListByVideoID(videoID);
-  res.json(comments);
-}
-
-export async function submitComment(req, res) {
-  try {
-    const { username, comment, videoID } = req.body;
-    const newComment = await CommentUsecase.submitComment(
-      username,
-      comment,
-      videoID,
-    );
-
-    if (newComment) {
-      res.json({ success: true });
-    } else {
-      res.json({ success: false });
-    }
-  } catch (error) {
-    res.status(500).json({ success: false });
-  }
-}
+};

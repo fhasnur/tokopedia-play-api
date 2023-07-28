@@ -3,10 +3,13 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import router from './server/routes/routes.js';
 
-const app = express();
+import videos from './server/routes/videos.js';
+import products from './server/routes/videos.js';
+import comments from './server/routes/videos.js';
+
 dotenv.config();
+const app = express();
 
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
@@ -14,12 +17,13 @@ const DB_URL = process.env.DB_URL;
 mongoose.connect(DB_URL);
 const db = mongoose.connection;
 
-db.on('error', (err) => {
-  console.log(err);
-});
+db.on('error', (error) => console.error(error));
+db.once('open', async () => {
+  console.log('Connected to database');
 
-db.on('connected', () => {
-  console.log('Database connected');
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 });
 
 app.use(bodyParser.json());
@@ -29,14 +33,12 @@ app.use(
   }),
 );
 
-app.use('/api/v1/videos', router);
+app.use('/videos', videos);
+app.use('/product', products);
+app.use('/comment', comments);
 
 app.use((req, res) => {
   res.status(404).json({
     message: 'not found!',
   });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });

@@ -1,16 +1,6 @@
-/* eslint-disable no-undef */
 import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
-  videoID: {
-    type: String,
-    required: true,
-  },
-  productID: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   linkProduct: {
     type: String,
     required: true,
@@ -23,8 +13,12 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  videoId: {
+    type: String,
+    required: true,
+  },
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Products = mongoose.model('Products', productSchema);
 
-export default Product;
+export default Products;

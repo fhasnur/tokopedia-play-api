@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
 const videoSchema = new mongoose.Schema({
-  videoID: {
+  title: {
     type: String,
     required: true,
-    unique: true,
   },
   urlImage: {
     type: String,
@@ -16,6 +15,6 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
-const Video = mongoose.model('Video', videoSchema);
+const Videos = mongoose.model('Videos', videoSchema);
 
-export default Video;
+export default Videos;
