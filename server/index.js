@@ -4,9 +4,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
-import videos from './server/routes/videos.js';
-import products from './server/routes/videos.js';
-import comments from './server/routes/videos.js';
+import videos from './routes/videos.js';
+import products from './routes/products.js';
+import comments from './routes/comments.js';
 
 dotenv.config();
 const app = express();
