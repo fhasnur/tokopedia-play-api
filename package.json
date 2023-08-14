@@ -14,7 +14,7 @@
     "seed": "node dummyData.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --write \"server/**/*.js\""
+    "prettier": "prettier --write \"**/*.js\" \"!node_modules/**/*\""
   },
   "dependencies": {
     "body-parser": "^1.20.2",
