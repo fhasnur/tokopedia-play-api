@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import Videos from './models/videoModel.js';
-import Products from './models/productModel.js';
-import Comments from './models/commentModel.js';
+import Videos from './models/video.model.js';
+import Products from './models/product.model.js';
+import Comments from './models/comment.model.js';
 
 dotenv.config();
 const DB_URL = process.env.DB_URL;

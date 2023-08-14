@@ -4,7 +4,7 @@ import {
   getAllComments,
   addComment,
   getCommentByVideoId,
-} from '../controllers/videoController.js';
+} from '../controllers/comment.controller.js';
 
 const router = express.Router();
 

@@ -4,7 +4,7 @@ import {
   getAllVideos,
   getVideoById,
   createVideo,
-} from '../controllers/videoController.js';
+} from '../controllers/video.controller.js';
 
 const router = express.Router();
 

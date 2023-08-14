@@ -2,13 +2,13 @@ import express from 'express';
 
 import {
   getAllProducts,
-  getProductsByVideoId,
-} from '../controllers/productController.js';
+  getProductsById,
+} from '../controllers/product.controller.js';
 
 const router = express.Router();
 
 router.get('/', getAllProducts);
 
-router.get('/:videoId', getProductsByVideoId);
+router.get('/:videoId', getProductsById);
 
 export default router;

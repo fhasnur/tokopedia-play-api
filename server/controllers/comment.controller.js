@@ -1,5 +1,5 @@
-import Videos from '../models/videoModel.js';
-import Comments from '../models/commentModel.js';
+import Videos from '../models/video.model.js';
+import Comments from '../models/comment.model.js';
 
 export const getAllComments = async (req, res) => {
   try {
