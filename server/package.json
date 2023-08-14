@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "seed": "node server/dummyData.js",
+    "seed": "node dummyData.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --write \"server/**/*.js\""
