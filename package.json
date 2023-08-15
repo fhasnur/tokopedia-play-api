@@ -1,13 +1,13 @@
 {
   "name": "tokopedia-play-clone",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
   "author": "Fandi Hasnur",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "seed": "node dummyData.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
