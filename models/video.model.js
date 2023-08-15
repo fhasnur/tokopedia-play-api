@@ -1,15 +1,19 @@
 import mongoose from 'mongoose';
 
 const videoSchema = new mongoose.Schema({
+  thumbnail: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
   },
-  urlImage: {
+  owner: {
     type: String,
     required: true,
   },
-  thumbnail: {
+  linkVideo: {
     type: String,
     required: true,
   },
